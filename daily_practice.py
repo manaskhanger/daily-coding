@@ -7,22 +7,23 @@ today = str(date.today())
 os.makedirs("problems", exist_ok=True)
 os.makedirs("solutions", exist_ok=True)
 
-# Difficulty progression based on day number
-day_number = len(os.listdir("problems")) + 1
+# Count existing problems
+existing = len(os.listdir("problems")) + 1
 
-if day_number <= 10:
+# Difficulty progression
+if existing <= 10:
     difficulty = "Easy"
-elif day_number <= 30:
+elif existing <= 30:
     difficulty = "Medium"
 else:
     difficulty = "Hard"
 
-# Real DSA-style problems
-problem_bank = {
+# Problem bank
+problems = {
     "Easy": [
-        ("Two Sum", "Given an array nums and target, return indices of two numbers such that they add up to target."),
+        ("Two Sum", "Find two indices such that their sum equals the target."),
         ("Palindrome Check", "Check if a string is a palindrome."),
-        ("Valid Parentheses", "Determine if input string has valid parentheses."),
+        ("Valid Parentheses", "Check if parentheses are valid."),
     ],
     "Medium": [
         ("Longest Substring Without Repeating Characters", "Find length of longest substring without repeating characters."),
@@ -30,21 +31,20 @@ problem_bank = {
         ("Search in Rotated Sorted Array", "Search target in rotated sorted array."),
     ],
     "Hard": [
-        ("Median of Two Sorted Arrays", "Find median of two sorted arrays in O(log n)."),
+        ("Median of Two Sorted Arrays", "Find median of two sorted arrays."),
         ("Merge k Sorted Lists", "Merge k sorted linked lists."),
-        ("Trapping Rain Water", "Compute trapped rainwater."),
+        ("Trapping Rain Water", "Calculate trapped rain water."),
     ]
 }
 
-problem = random.choice(problem_bank[difficulty])
-title, desc = problem
+title, desc = random.choice(problems[difficulty])
 
 # Save problem
 with open(f"problems/{today}.md", "w") as f:
     f.write(f"# {title} ({difficulty})\n\n{desc}\n")
 
-# Optimal solutions (basic but real)
-solutions_map = {
+# Solutions
+solutions = {
     "Two Sum": """def two_sum(nums, target):
     d = {}
     for i, num in enumerate(nums):
@@ -71,7 +71,7 @@ solutions_map = {
     l = res = 0
     for r in range(len(s)):
         if s[r] in seen:
-            l = max(seen[s[r]] + 1, l)
+            l = max(l, seen[s[r]] + 1)
         seen[s[r]] = r
         res = max(res, r - l + 1)
     return res""",
@@ -103,29 +103,29 @@ solutions_map = {
     return (nums[n//2 - 1] + nums[n//2]) / 2"""
 }
 
-solution_code = solutions_map.get(title, "print('Solution coming soon')")
+solution_code = solutions.get(title, "print('Solution coming soon')")
 
 with open(f"solutions/{today}.py", "w") as f:
     f.write(f"# {title} ({difficulty})\n\n{solution_code}")
 
-# Update README stats
+# Update README (clean + human)
 total = len(os.listdir("problems"))
 
-readme_content = f"""# 📅 Daily DSA Grind
+readme = f"""# 📅 Daily DSA Grind
 
-🔥 Auto-generated coding problems + solutions
+Consistent daily practice of data structures and algorithms.
 
-## 📊 Stats
+## 📊 Progress
 - Total Problems Solved: {total}
-- Current Difficulty: {difficulty}
+- Current Focus: {difficulty}
 
-## 📂 Structure
+## 📂 Repository Structure
 - problems/ → problem statements
-- solutions/ → optimal code
+- solutions/ → implementations
 
-## 🚀 Goal
-Consistent daily DSA practice for placements
+## 🎯 Objective
+Building strong problem-solving skills through daily practice.
 """
 
 with open("README.md", "w") as f:
-    f.write(readme_content)
+    f.write(readme)
