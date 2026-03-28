@@ -2,7 +2,7 @@ name: Daily Coding Problem
 
 on:
   schedule:
-    # Runs multiple times per day (backup triggers)
+    # Multiple runs per day (backup triggers)
     - cron: '0 0 * * *'     # 5:30 AM IST
     - cron: '0 6 * * *'     # 11:30 AM IST
     - cron: '0 12 * * *'    # 5:30 PM IST
@@ -11,6 +11,9 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repo
@@ -24,24 +27,23 @@ jobs:
       - name: Random delay (human-like timing)
         run: sleep $((RANDOM % 300))
 
-      - name: Run generator with retry
+      - name: Run daily practice script with retry
         run: |
           for i in 1 2 3; do
-            python generator.py && break
+            python daily_practice.py && break
             echo "Retry $i failed... retrying"
             sleep 5
           done
 
       - name: Commit changes if any
         run: |
-          git config --global user.name "auto-bot"
-          git config --global user.email "bot@example.com"
+          git config --global user.name "Manas"
+          git config --global user.email "manas@example.com"
           git add .
 
-          # Only commit if there are changes
           if git diff --cached --quiet; then
             echo "No changes today"
           else
-            git commit -m "Daily coding update $(date)"
+            git commit -m "Daily DSA practice $(date +'%Y-%m-%d')"
             git push
           fi
