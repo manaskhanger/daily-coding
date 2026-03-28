@@ -1,8 +1,12 @@
-# Two Sum (Easy)
+# Valid Parentheses (Easy)
 
-def two_sum(nums, target):
-    d = {}
-    for i, num in enumerate(nums):
-        if target - num in d:
-            return [d[target - num], i]
-        d[num] = i
+def is_valid(s):
+    stack = []
+    m = {')':'(', '}':'{', ']':'['}
+    for c in s:
+        if c in m.values():
+            stack.append(c)
+        elif c in m:
+            if not stack or stack.pop() != m[c]:
+                return False
+    return not stack
