@@ -1,4 +1,8 @@
-# Palindrome Check (Easy)
+# Two Sum (Easy)
 
-def is_palindrome(s):
-    return s == s[::-1]
+def two_sum(nums, target):
+    d = {}
+    for i, num in enumerate(nums):
+        if target - num in d:
+            return [d[target - num], i]
+        d[num] = i
