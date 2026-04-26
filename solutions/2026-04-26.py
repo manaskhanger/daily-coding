@@ -1,3 +1,3 @@
-# Search in Rotated Sorted Array (Medium)
+# Trapping Rain Water (Hard)
 
 print('Solution coming soon')
