@@ -3,7 +3,7 @@
 Consistent daily practice of data structures and algorithms.
 
 ## 📊 Progress
-- Total Problems Solved: 154
+- Total Problems Solved: 155
 - Current Focus: Hard
 
 ## 📂 Repository Structure
