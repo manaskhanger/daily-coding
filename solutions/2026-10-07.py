@@ -1,3 +1,3 @@
-# Merge k Sorted Lists (Hard)
+# Trapping Rain Water (Hard)
 
 print('Solution coming soon')
